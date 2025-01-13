@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 const SignupPage = () => {
-    const [step, setStep] = useState(1); // Current step in the form
+    const [step, setStep] = useState(1); 
     const [formData, setFormData] = useState({
         email: "",
         otp: "",
@@ -10,8 +10,9 @@ const SignupPage = () => {
         username: "",
         password: "",
         confirmPassword: "",
+
     });
-    const [otpVerified, setOtpVerified] = useState(false); // OTP verification status
+    const [otpVerified, setOtpVerified] = useState(false); 
 
     
     const handleChange = (e) => {
