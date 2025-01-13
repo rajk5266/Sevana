@@ -1,0 +1,79 @@
+/* ///////////////////////////SIGNUP/////////////////////  */
+
+.signup-card {
+    padding: 1%;
+}
+.signup-card .logo{
+    text-align: center;
+    padding-top: 5%;
+}
+.signup-card .logo img{
+    width: 200px;
+    height: auto;
+}
+.signup-card .signup-option {
+    width: 100%;
+}
+
+.signup-card .signup-option .btn {
+    background-color: #E6CAAC;
+    width: 100% !important;
+}
+
+.signup-card .signup-option-wrapper .auto {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.signup-card .signup-option-wrapper .auto .google{
+    background-color: rgba(255, 0, 0, 0.839);
+    color: white;
+}
+.signup-card .signup-option-wrapper .auto .facebook{
+    background-color: rgba(0, 0, 255, 0.831);
+    color: white;
+}
+@media screen and (max-width: 768px) {
+    .signup-card .row {
+        padding: 1%;
+        /* height: 100vh; */
+        display: flex;
+        justify-content: center;
+    }
+
+    .signup-card .manual {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+.signup-card .form-section form {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+@media screen and (max-width: 768px) {
+    .signup-card .image-section {
+        display: none;
+    }
+}
+
+.signup-card .image-section img {
+    height: 500px;
+    width: auto;
+}
+
+
+
+
+
+/* ///////////////////////////SIGNUP/////////////////////  */
