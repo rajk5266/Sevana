@@ -1,39 +1,74 @@
 /* ///////////////////////////SIGNUP/////////////////////  */
 
-.signup-card {
-    padding: 1%;
+.signup-card-wrapper{
+    margin-top: 3rem;
+    height: 80vh;
 }
-.signup-card .logo{
+.signup-card {
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
+}
+
+.signup-card .row>.col {
+    
+    padding: 0 !important;
+}
+
+.signup-card .logo {
     text-align: center;
     padding-top: 5%;
 }
-.signup-card .logo img{
+
+.signup-card .logo img {
     width: 200px;
     height: auto;
 }
+
 .signup-card .signup-option {
     width: 100%;
 }
-
+.signup-card .signup-option-wrapper .manual input{
+    outline: none;
+    border: navajowhite;
+}
+.signup-card .signup-option-wrapper .signup-option-inner-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding-top: 48px;
+}
 .signup-card .signup-option .btn {
-    background-color: #E6CAAC;
+    background-color: #c9b192;
     width: 100% !important;
+    color: white;
 }
 
-.signup-card .signup-option-wrapper .auto {
+.signup-card .step{
+    padding: 13%;
+}
+.signup-card .signup-option-wrapper .row {
+    /* gap: 50px; */
+}
+
+.signup-card .auto {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
-.signup-card .signup-option-wrapper .auto .google{
+
+.signup-card .signup-option-wrapper .auto .google {
     background-color: rgba(255, 0, 0, 0.839);
     color: white;
 }
-.signup-card .signup-option-wrapper .auto .facebook{
+
+.signup-card .signup-option-wrapper .auto .facebook {
     background-color: rgba(0, 0, 255, 0.831);
     color: white;
 }
+
 @media screen and (max-width: 768px) {
     .signup-card .row {
         padding: 1%;
@@ -43,7 +78,7 @@
     }
 
     .signup-card .manual {
-        height: 100%;
+        /* height: 100%; */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -52,11 +87,14 @@
     }
 }
 
+.signup-card .form-section{
+    background-color: #faebd78f;
+}
 .signup-card .form-section form {
     height: 100%;
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 
 }
 
@@ -68,12 +106,29 @@
 }
 
 .signup-card .image-section img {
-    height: 500px;
-    width: auto;
+    width: 100%; 
+    height: 100%;
+}
+.signup-card .image-section .img-wrapper{
+    height: 100%;
+    /* overflow: hidden;
+    border-top-right-radius: 12px ;
+    border-bottom-right-radius: 12px ; */
 }
 
 
 
 
-
+.signup-card .step-2{
+    /* padding: 8%; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+}
+.signup-card .step-2 .button-section{
+    display: flex;
+    justify-content: space-evenly;
+}
 /* ///////////////////////////SIGNUP/////////////////////  */
