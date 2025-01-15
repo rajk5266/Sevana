@@ -144,4 +144,12 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.signup-card .step-4 .option,
+.signup-card .step-5 .option
+{
+    display: flex;
+    gap: 20px;
+    font-size: 20px;
+}
 /* ///////////////////////////SIGNUP/////////////////////  */

@@ -2,11 +2,8 @@
 import React, { useState } from "react";
 
 const SignupPage = () => {
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(4);
     const [selectedOption, setSelectedOption] = useState("");
-    // const handleOptionChange = (e) => {
-    //     setSelectedOption(e.target.value);
-    //   };
     const [formData, setFormData] = useState({
         email: "",
         otp: "",
@@ -15,7 +12,7 @@ const SignupPage = () => {
         weightUnit: 'kg',
         confirmPassword: "",
     });
-    const [otpVerified, setOtpVerified] = useState(false);
+    const [otpVerified, setOtpVerified] = useState(true);
 
 
     const handleChange = (e) => {
@@ -300,10 +297,10 @@ const SignupPage = () => {
                                     )}
                                     {otpVerified && step === 4 && (
                                         <div className="step step-4">
-                                            <h2 style={{ marginBottom: "15px" }}>Understanding You:Body, Mind & Spirit</h2>
+                                            <h4 style={{ marginBottom: "15px" }}>Understanding You:Body, Mind & Spirit</h4>
                                             <h3>What best describes your body type ?</h3>
                                             <div style={{ marginBottom: "10px" }}>
-                                                <label style={{ display: "block", marginBottom: "5px" }}>
+                                                <div className="option">
                                                     <input
                                                         type="radio"
                                                         name="body-type"
@@ -311,9 +308,10 @@ const SignupPage = () => {
                                                         checked={selectedOption === "slim"}
                                                         onChange={(e) => setSelectedOption(e.target.value)}
                                                     />
-                                                    Slim
-                                                </label>
-                                                <label style={{ display: "block", marginBottom: "5px" }}>
+                                                    <em>Slim</em>
+                                                </div>
+
+                                                <div className="option">
                                                     <input
                                                         type="radio"
                                                         name="body-type"
@@ -321,9 +319,10 @@ const SignupPage = () => {
                                                         checked={selectedOption === "athletic"}
                                                         onChange={(e) => setSelectedOption(e.target.value)}
                                                     />
-                                                    Athletic
-                                                </label>
-                                                <label style={{ display: "block", marginBottom: "5px" }}>
+                                                    <em>Athletic</em>
+                                                </div>
+
+                                                <div className="option">
                                                     <input
                                                         type="radio"
                                                         name="body-type"
@@ -331,9 +330,10 @@ const SignupPage = () => {
                                                         checked={selectedOption === "average"}
                                                         onChange={(e) => setSelectedOption(e.target.value)}
                                                     />
-                                                    Average
-                                                </label>
-                                                <label style={{ display: "block", marginBottom: "5px" }}>
+                                                    <em>Average</em>
+                                                </div>
+
+                                                <div className="option">
                                                     <input
                                                         type="radio"
                                                         name="body-type"
@@ -341,9 +341,10 @@ const SignupPage = () => {
                                                         checked={selectedOption === "curvy"}
                                                         onChange={(e) => setSelectedOption(e.target.value)}
                                                     />
-                                                    Curvy
-                                                </label>
-                                                <label style={{ display: "block", marginBottom: "5px" }}>
+                                                    <em>Curvy</em>
+                                                </div>
+
+                                                <div className="option">
                                                     <input
                                                         type="radio"
                                                         name="body-type"
@@ -351,13 +352,12 @@ const SignupPage = () => {
                                                         checked={selectedOption === "overweight"}
                                                         onChange={(e) => setSelectedOption(e.target.value)}
                                                     />
-                                                    Overweight
-                                                </label>
-                                                
+                                                    <em>Overweight</em>
+                                                </div>
                                             </div>
                                             <button
                                                 type="button"
-                                                onClick={() => alert(`Your favourite programming language is: ${selectedOption}`)}
+                                                onClick={() => setStep(3)}
                                                 style={{
                                                     padding: "10px 15px",
                                                     backgroundColor: "#4CAF50",
@@ -367,13 +367,258 @@ const SignupPage = () => {
                                                     cursor: "pointer",
                                                 }}
                                             >
-                                                Submit
+                                                back
                                             </button>
-                                            <div className="questions">
-                                                <div className="quest-sec">
+                                            <button
+                                                type="button"
+                                                onClick={() => setStep(5)}
+                                                style={{
+                                                    padding: "10px 15px",
+                                                    backgroundColor: "#4CAF50",
+                                                    color: "white",
+                                                    border: "none",
+                                                    borderRadius: "5px",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Next
+                                            </button>
 
+                                        </div>
+                                    )}
+
+                                    {otpVerified && step === 5 && (
+                                        <div className="step step-5">
+                                            <h4 style={{ marginBottom: "15px" }}>Understanding You:Body, Mind & Spirit</h4>
+                                            <h3>How would you describe your usual mental state ?</h3>
+                                            <div style={{ marginBottom: "10px" }}>
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="mental-state"
+                                                        value="excited"
+                                                        checked={selectedOption === "excited"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Excited</em>
+                                                </div>
+
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="mental-state"
+                                                        value="happy"
+                                                        checked={selectedOption === "happy"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Happy</em>
+                                                </div>
+
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="mental-state"
+                                                        value="calm"
+                                                        checked={selectedOption === "calm"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Calm</em>
+                                                </div>
+
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="mental-state"
+                                                        value="neutral"
+                                                        checked={selectedOption === "neutral"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Neutral</em>
+                                                </div>
+
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="mental-state"
+                                                        value="stressed"
+                                                        checked={selectedOption === "stressed"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Stressed</em>
+                                                </div>
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="mental-state"
+                                                        value="overwhelmed"
+                                                        checked={selectedOption === "overwhelmed"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Overwhelmed</em>
                                                 </div>
                                             </div>
+
+                                            <button
+                                                type="button"
+                                                onClick={() => setStep(4)}
+                                                style={{
+                                                    padding: "10px 15px",
+                                                    backgroundColor: "#4CAF50",
+                                                    color: "white",
+                                                    border: "none",
+                                                    borderRadius: "5px",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Back
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => setStep(6)}
+                                                style={{
+                                                    padding: "10px 15px",
+                                                    backgroundColor: "#4CAF50",
+                                                    color: "white",
+                                                    border: "none",
+                                                    borderRadius: "5px",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Next
+                                            </button>
+
+                                        </div>
+                                    )}
+
+                                    {otpVerified && step === 6 && (
+                                        <div className="step step-5">
+                                            <h4 style={{ marginBottom: "15px" }}>Understanding You:Body, Mind & Spirit</h4>
+                                            <h3>Do you practice any form of spirituality or mindfulness ?</h3>
+                                            <div style={{ marginBottom: "10px" }}>
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="spiritual"
+                                                        value="meditation"
+                                                        checked={selectedOption === "meditation"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Meditation</em>
+                                                </div>
+
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="spiritual"
+                                                        value="yoga"
+                                                        checked={selectedOption === "yoga"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Yoga</em>
+                                                </div>
+
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="spiritual"
+                                                        value="prayer"
+                                                        checked={selectedOption === "prayer"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Prayer</em>
+                                                </div>
+
+                                                
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="spiritual"
+                                                        value="chanting"
+                                                        checked={selectedOption === "chanting"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Chanting</em>
+                                                </div>
+
+                                                
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="spiritual"
+                                                        value="chanting"
+                                                        checked={selectedOption === "chanting"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Chanting</em>
+                                                </div>
+
+                                                
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="spiritual"
+                                                        value="gratitude"
+                                                        checked={selectedOption === "gratitude"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Gratitude</em>
+                                                </div>
+
+                                                
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="spiritual"
+                                                        value="mindfulness"
+                                                        checked={selectedOption === "mindfulness"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Mindfulness</em>
+                                                </div>
+
+                                                
+                                                <div className="option">
+                                                    <input
+                                                        type="radio"
+                                                        name="spiritual"
+                                                        value="journaling"
+                                                        checked={selectedOption === "journaling"}
+                                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                                    />
+                                                    <em>Journaling</em>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                onClick={() => setStep(5)}
+                                                style={{
+                                                    padding: "10px 15px",
+                                                    backgroundColor: "#4CAF50",
+                                                    color: "white",
+                                                    border: "none",
+                                                    borderRadius: "5px",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Back
+                                            </button>
+                                            <button
+                                                type="button"
+                                                // onClick={() => }
+                                                style={{
+                                                    padding: "10px 15px",
+                                                    backgroundColor: "#4CAF50",
+                                                    color: "white",
+                                                    border: "none",
+                                                    borderRadius: "5px",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Next
+                                            </button>
+
                                         </div>
                                     )}
 
