@@ -1,48 +1,58 @@
 
 import React, { useState } from "react";
+import axios from "axios";
 
 const SignupPage = () => {
-    const [step, setStep] = useState(4);
+    const [step, setStep] = useState(1);
     const [selectedOption, setSelectedOption] = useState("");
+    const [otpVerified, setOtpVerified] = useState(false);
+
     const [formData, setFormData] = useState({
         email: "",
         otp: "",
-        fullName: "",
-
-        weightUnit: 'kg',
-        confirmPassword: "",
     });
-    const [otpVerified, setOtpVerified] = useState(true);
 
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleEmailSubmit = () => {
+    const handleEmailSubmit = async () => {
         if (!formData.email) {
             alert("Please enter your email!");
             return;
         }
+        console.log(formData.email)
+        try {
+            const response = await axios.post('http://192.168.31.2:5001/signup/email-verification', {email: formData.email});
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
 
-        console.log("OTP sent to:", formData.email);
         setStep(2);
     };
 
-    const handleOtpVerification = () => {
+    const handleOtpVerification = async () => {
+        try {
+            const response = await axios.post('http://192.168.31.2:5001/signup/email-verification', formData);
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
         if (!formData.otp) {
             alert("Please enter the OTP!");
             return;
         }
 
         //  OTP verification 
-        if (formData.otp === "1234") {
-            alert("OTP Verified!");
-            setOtpVerified(true);
-            setStep(3);
-        } else {
-            alert("Invalid OTP. Please try again.");
-        }
+        // if (formData.otp === "1234") {
+        //     alert("OTP Verified!");
+        //     setOtpVerified(true);
+        //     setStep(3);
+        // } else {
+        //     alert("Invalid OTP. Please try again.");
+        // }
     };
 
     const handleWeightUnitChange = (e) => {
@@ -156,12 +166,20 @@ const SignupPage = () => {
                                                     <div className="buttons verify-btn">
                                                         <button
                                                             type="button"
-                                                            className="btn btn-primary"
+                                                            className="btn btn-success"
                                                             onClick={handleOtpVerification}
                                                         >
                                                             Verify OTP
                                                         </button>
                                                     </div>
+                                                </div>
+                                                <div className="resend-otp-btn">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-outline-primary"
+                                                    >
+                                                        Resend OTP
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -528,7 +546,7 @@ const SignupPage = () => {
                                                     <em>Prayer</em>
                                                 </div>
 
-                                                
+
                                                 <div className="option">
                                                     <input
                                                         type="radio"
@@ -540,7 +558,7 @@ const SignupPage = () => {
                                                     <em>Chanting</em>
                                                 </div>
 
-                                                
+
                                                 <div className="option">
                                                     <input
                                                         type="radio"
@@ -552,7 +570,7 @@ const SignupPage = () => {
                                                     <em>Chanting</em>
                                                 </div>
 
-                                                
+
                                                 <div className="option">
                                                     <input
                                                         type="radio"
@@ -564,7 +582,7 @@ const SignupPage = () => {
                                                     <em>Gratitude</em>
                                                 </div>
 
-                                                
+
                                                 <div className="option">
                                                     <input
                                                         type="radio"
@@ -576,7 +594,7 @@ const SignupPage = () => {
                                                     <em>Mindfulness</em>
                                                 </div>
 
-                                                
+
                                                 <div className="option">
                                                     <input
                                                         type="radio"
@@ -587,7 +605,7 @@ const SignupPage = () => {
                                                     />
                                                     <em>Journaling</em>
                                                 </div>
-                                                
+
                                             </div>
 
                                             <button
