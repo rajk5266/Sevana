@@ -3,11 +3,11 @@ require("dotenv").config();
 
 // Configure the transporter
 const transporter = nodemailer.createTransport({
-    host: "smtp-relay.sendinblue.com", // Update to your SMTP server
+    host: "smtp-relay.sendinblue.com", //  SMTP server
     port: 587,
     auth: {
-        user: process.env.SMTP_USER, // Your email (from environment variables)
-        pass: process.env.SMTP_PASS, // Your SMTP password (from environment variables)
+        user: process.env.SMTP_USER, 
+        pass: process.env.SMTP_PASS, 
     },
 });
 
@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
  */
 const sendEmail = async (to, subject, htmlContent) => {
     const mailOptions = {
-        from: process.env.SMTP_USER, // Sender email address
+        from: process.env.SMTP_USER, 
         to,
         subject,
         html: htmlContent,

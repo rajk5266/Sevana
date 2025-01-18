@@ -42,8 +42,8 @@ const generateOtp = async (req, res) => {
             `
             try {
                 // Call the utility function to send the email
-                await sendEmail(email, subject, htmlContent);
-                res.status(200).json({ success: true, message: "OTP sent successfully!", otp }); // Include OTP for testing
+                // await sendEmail(email, subject, htmlContent);
+                res.status(200).json({ success: true, message: "OTP sent successfully!" }); 
             } catch (error) {
                 res.status(500).json({ success: false, message: "Error sending email.", error });
             }

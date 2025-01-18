@@ -7,6 +7,9 @@ const SignupPage = () => {
     const [selectedOption, setSelectedOption] = useState("");
     const [otpVerified, setOtpVerified] = useState(false);
 
+    const [alertMessage, setAlertMessage] = useState(""); 
+    const [alertStyle, setAlertStyle] = useState("");
+
     const [formData, setFormData] = useState({
         email: "",
         otp: "",
@@ -24,13 +27,23 @@ const SignupPage = () => {
         }
         console.log(formData.email)
         try {
-            const response = await axios.post('http://192.168.31.2:5001/signup/email-verification', {email: formData.email});
-            console.log(response)
+            const response = await axios.post('http://192.168.31.2:5001/signup/email-verification', { email: formData.email });
+            console.log(response.data)
+            if (response.status === 200) {
+                setAlertMessage("Please check your inbox to verify OTP.");
+                setAlertStyle("alert-success"); // For success styling
+
+                setTimeout(() => {
+                    setStep(2);
+                }, 2000)
+            }
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            setAlertMessage("Failed to send email. Please try again.");
+            setAlertStyle("alert-danger");
         }
 
-        setStep(2);
+       
     };
 
     const handleOtpVerification = async () => {
@@ -84,6 +97,7 @@ const SignupPage = () => {
 
     return (
         <div className="row d-flex justify-content-center">
+
             <div className="col col-12 col-md-8 ">
                 <div className="signup-card-wrapper">
                     <div className="signup-card">
@@ -91,7 +105,15 @@ const SignupPage = () => {
                             <div className="col col-12 col-md-6  form-section">
 
                                 <form >
+                                    {/* Alert Section */}
+                                    {/* Alert Section */}
+                                    {alertMessage && (
+                                        <div className={`alert ${alertStyle} mt-3`} role="alert">
+                                            {alertMessage}
+                                        </div>
+                                    )}
                                     {step === 1 && (
+
                                         <div className="signup-option-wrapper step step-1">
                                             <div className="row">
                                                 <div className="col col-12">
@@ -182,8 +204,6 @@ const SignupPage = () => {
                                                     </button>
                                                 </div>
                                             </div>
-
-
 
                                         </div>
                                     )}
