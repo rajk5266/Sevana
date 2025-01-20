@@ -16,9 +16,9 @@ const generateOtp = async (req, res) => {
 
     const otp = generate4digitOtp();
 
-   
-        const subject = `Verify your Email`
-        const htmlContent = `
+
+    const subject = `Verify your Email`
+    const htmlContent = `
                 <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; padding: 20px; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px;">
                     <div style="text-align: center; padding: 10px 0;">
                         <h2 style="color: #007BFF;">Sevana</h2>
@@ -32,7 +32,7 @@ const generateOtp = async (req, res) => {
                         <p style="font-size: 1.5em; color: #007BFF; font-weight: bold; margin: 10px 0;">${otp}</p>
                     </div>
                     <p style="font-size: 1em;">
-                        If you did not request this, please ignore this email. This OTP is valid for the next 10 minutes.
+                        If you did not request this, please ignore this email. This OTP is valid for the next 2 minutes.
                     </p>
                     <div style="margin-top: 20px; text-align: center; color: #888;">
                         <p style="font-size: 0.9em;">Need help? Contact us at <a href="mailto:support@sevana.com" style="color: #007BFF;">support@sevana.com</a></p>
@@ -40,13 +40,33 @@ const generateOtp = async (req, res) => {
                     </div>
                 </div>
             `
-            try {
-                // Call the utility function to send the email
-                // await sendEmail(email, subject, htmlContent);
-                res.status(200).json({ success: true, message: "OTP sent successfully!" }); 
-            } catch (error) {
-                res.status(500).json({ success: false, message: "Error sending email.", error });
-            }
+    try {
+        // Save OTP to the database
+        const saveOtp = await Otp.create({ email, otp });
+        if (saveOtp._id) {
+            // Calling the utility function to send the email
+            // await sendEmail(email, subject, htmlContent);
+            res.status(200).json({ success: true, message: "OTP sent successfully!" });
+        } else {
+            console.log('database error')
+        }
+
+        // console.log(`OTP for ${email}: ${otp}`);
+
+    } catch (error) {
+        // Handle database connection errors
+        if (error.name === "MongooseError" || error.name === "MongoError" || error instanceof mongoose.Error) {
+            return res.status(500).json({
+                success: false,
+                message: "A database error occurred. Please try again later.",
+                errorDetails: error.message,
+            });
+        } else if (error.response && error.response.status === 500) {
+            res.status(500).json({ success: false, message: "Email service failed. Please try again later." });
+        } else {
+            res.status(500).json({ success: false, message: "An unexpected error occurred. Please try again." });
+        }
+    }
 
 };
 

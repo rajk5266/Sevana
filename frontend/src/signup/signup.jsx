@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const SignupPage = () => {
@@ -7,13 +7,60 @@ const SignupPage = () => {
     const [selectedOption, setSelectedOption] = useState("");
     const [otpVerified, setOtpVerified] = useState(false);
 
-    const [alertMessage, setAlertMessage] = useState(""); 
+    const [isDisabled, setIsDisabled] = useState(true);
+    const [timer, setTimer] = useState();
+
+    const [alertMessage, setAlertMessage] = useState("");
     const [alertStyle, setAlertStyle] = useState("");
 
     const [formData, setFormData] = useState({
         email: "",
         otp: "",
     });
+
+
+    useEffect(() => {
+        let interval;
+        if (isDisabled) {
+            // Start the countdown when the button is disabled
+            interval = setInterval(() => {
+                setTimer((prevTimer) => {
+                    if (prevTimer > 0) {
+                        return prevTimer - 1;
+                    } else {
+                        clearInterval(interval); // Stop the interval when timer reaches 0
+                        setIsDisabled(false); // Enable the button
+                        setAlertMessage('');
+                        setAlertStyle('')
+                        return 0;
+                    }
+                });
+            }, 1000);
+        }
+        return () => clearInterval(interval); // Cleanup interval on component unmount
+    }, [isDisabled]);
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes}:${secs < 10 ? `0${secs}` : secs}`; // Format as MM:SS
+    };
+
+    const handleResendOtp = async () => {
+        try {
+            const response = await axios.post("http://192.168.31.2:5001/signup/email-verification", {
+                email: formData.email,
+            });
+            if (response.status === 200) {
+                alert("OTP resent successfully!");
+                setIsDisabled(true); // Disable the button again
+                setTimer(120); // Reset the timer to 5 minutes
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Failed to resend OTP. Please try again.");
+        }
+    };
 
 
     const handleChange = (e) => {
@@ -31,11 +78,14 @@ const SignupPage = () => {
             console.log(response.data)
             if (response.status === 200) {
                 setAlertMessage("Please check your inbox to verify OTP.");
-                setAlertStyle("alert-success"); // For success styling
+                setAlertStyle("alert-success");
+
+                setIsDisabled(true)
 
                 setTimeout(() => {
                     setStep(2);
-                }, 2000)
+                }, 1000)
+
             }
         } catch (error) {
             console.log(error);
@@ -43,29 +93,31 @@ const SignupPage = () => {
             setAlertStyle("alert-danger");
         }
 
-       
-    };
 
+    };
     const handleOtpVerification = async () => {
-        try {
-            const response = await axios.post('http://192.168.31.2:5001/signup/email-verification', formData);
-            console.log(response)
-        } catch (error) {
-            console.log(error)
-        }
         if (!formData.otp) {
             alert("Please enter the OTP!");
             return;
         }
 
-        //  OTP verification 
-        // if (formData.otp === "1234") {
-        //     alert("OTP Verified!");
-        //     setOtpVerified(true);
-        //     setStep(3);
-        // } else {
-        //     alert("Invalid OTP. Please try again.");
-        // }
+        try {
+            const response = await axios.post(
+                "http://192.168.31.2:5001/signup/otp-verification",
+                formData
+            );
+            console.log(response);
+            if (response.status === 200) {
+                alert("OTP Verified!");
+                setOtpVerified(true);
+                setStep(3);
+            } else {
+                alert("Invalid OTP. Please try again.");
+            }
+        } catch (error) {
+            console.log(error);
+            alert("Failed to verify OTP. Please try again.");
+        }
     };
 
     const handleWeightUnitChange = (e) => {
@@ -94,6 +146,9 @@ const SignupPage = () => {
     //     console.log("Signup completed!", formData);
     //     alert("Signup Successful!");
     // };
+
+
+
 
     return (
         <div className="row d-flex justify-content-center">
@@ -199,8 +254,10 @@ const SignupPage = () => {
                                                     <button
                                                         type="button"
                                                         className="btn btn-outline-primary"
+                                                        onClick={handleResendOtp}
+                                                        disabled={isDisabled}
                                                     >
-                                                        Resend OTP
+                                                        {isDisabled ? `Resend OTP in ${formatTime(timer)}` : "Resend OTP"}
                                                     </button>
                                                 </div>
                                             </div>
